@@ -15,7 +15,6 @@ typedef struct work_t {
 } work_t;
 
 struct tpool {
-  /* TO BE COMPLETED BY THE STUDENT */
   uthread_t* threads;
   uthread_mutex_t mx;
   uthread_cond_t noTasks;
@@ -78,7 +77,6 @@ void dequeue(tpool_t tpool, void** val, void (**callback) (tpool_t, void*)) {
 static void *worker_thread(void *param) {
   tpool_t pool = param;
 
-  /* TO BE COMPLETED BY THE STUDENT */
 
   while (1) {
 
@@ -127,7 +125,6 @@ static void *worker_thread(void *param) {
  */
 tpool_t tpool_create(unsigned int num_threads) {
 
-  /* TO BE COMPLETED BY THE STUDENT */
 
   tpool_t pool = malloc(sizeof(struct tpool));
 
@@ -141,7 +138,6 @@ tpool_t tpool_create(unsigned int num_threads) {
   pool->workBack    = NULL;
   pool->threadCount = num_threads;
 
-  // TODO
   for (int i = 0; i < num_threads; i++) {
     pool->threads[i] = uthread_create(worker_thread, pool);
   }
@@ -168,7 +164,6 @@ tpool_t tpool_create(unsigned int num_threads) {
 void tpool_schedule_task(tpool_t pool, void (*fun)(tpool_t, void *),
                          void *arg) {
 
-  /* TO BE COMPLETED BY THE STUDENT */
   if (fun == NULL || arg == NULL)
     return;
 
@@ -194,7 +189,6 @@ void tpool_schedule_task(tpool_t pool, void (*fun)(tpool_t, void *),
  */
 void tpool_join(tpool_t pool) {
 
-  /* TO BE COMPLETED BY THE STUDENT */
   uthread_mutex_lock(pool->mx);
     while (pool->tasks) {
       uthread_cond_wait(pool->noTasks);
